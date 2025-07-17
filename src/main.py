@@ -5,7 +5,6 @@ import util
 import epochs_genetic
 import learning_rate_genetic
 import os
-import numpy as np
 
 def main():
     caminho_arquivo = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "pesos.csv")
@@ -13,11 +12,12 @@ def main():
         """MAIN."""
         dataset = util.download_dados()
         _,_,atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
-        epochs = epochs_genetic.learn(0.1)
-        learning_rate = learning_rate_genetic.learn(epochs)
+        epochs = epochs_genetic.envolve(0.1)
+        learning_rate = learning_rate_genetic.envolve(epochs)
         for _ in range(3):
-            epochs = epochs_genetic.learn(learning_rate)
-            learning_rate = learning_rate_genetic.learn(epochs)
+            print("bob")
+            epochs = epochs_genetic.envolve(learning_rate)
+            learning_rate = learning_rate_genetic.envolve(epochs)
 
         pesos,_ = treino.treinar(atributos_treino,rotulos_treino,epochs,learning_rate)
         # Pasta para salvar

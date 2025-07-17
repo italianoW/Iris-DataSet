@@ -6,12 +6,7 @@ import math
 
 def download_dados(): #returns data from iris_dataset 
 
-    path = kagglehub.dataset_download("vikrishnan/iris-dataset")
-    print(os.listdir(path))
-    data = pd.read_csv(os.path.join(path, 'iris.data.csv'))
-    shuffled_data = data.sample(frac=1).reset_index(drop=True)
-    print(shuffled_data)
-    return shuffled_data
+    return pd.read_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "iris.data.csv"))
 
 def divisao_treino_teste(dados):
 
@@ -51,7 +46,7 @@ def mse(saida, esperado):
 def avaliar(bias, modelo, atributos_teste, rotulos_teste):
     acertos = 0
     for atributos, rotulo in zip(atributos_teste, rotulos_teste):
-        saida = [bias[i] + sum(atributos[j] * modelo[j][i] for j in range(4)) for i in range(3)]
+        saida = relu([bias[i] + sum(atributos[j] * modelo[j][i] for j in range(4)) for i in range(3)])
         saida = softmax(saida)
         pred = saida.index(max(saida))
         if pred == rotulo:
@@ -60,9 +55,10 @@ def avaliar(bias, modelo, atributos_teste, rotulos_teste):
     return accuracy, bias
 
 def softmax(x):
-        e_x = [math.exp(i) for i in x]
-        soma = sum(e_x)
-        return [i / soma for i in e_x]
+    max_x = max(x)
+    e_x = [math.exp(i - max_x) for i in x]  # shift to prevent overflow
+    soma = sum(e_x)
+    return [i / soma for i in e_x]
 
-
-    
+def relu(x):
+    return [max(0,v) for v in x]

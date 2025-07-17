@@ -1,19 +1,8 @@
 """TREINO MODULE."""
 
-def treinar(dados, epocas):
+def treinar(atributos,rotulos, epocas):
     """TREINAR."""
-    tamanho = len(dados)
-    atributos = []
-    rotulos = []
-
-    for i in range(tamanho):
-        atributos.append(dados[i][:4])
-        if dados[i][4] == "Iris-setosa":
-            rotulos.append(0)
-        elif dados[i][4]== "Iris-versicolor":
-            rotulos.append(1)
-        else:
-            rotulos.append(2)
+    tamanho = len(rotulos)
 
     def one_hot(i, tamanho):
         """ONE-HOT."""

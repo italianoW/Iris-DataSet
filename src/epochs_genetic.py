@@ -8,7 +8,7 @@ POPULATION_SIZE = 20
 generation = [random.randint(1, 250) for _ in range(POPULATION_SIZE)]
 chromossome_fitness_tuples = [0] * POPULATION_SIZE
 dataset = util.download_dados()
-dados_de_treino, dados_de_teste = util.divisao_treino_teste(dataset)
+atributos_teste,rotulos_teste,atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
 already_used = []
 
 def main():
@@ -33,7 +33,7 @@ def main():
 
 def fitness_test():
     for i in range(POPULATION_SIZE):
-        _, erro_medio_final = treino.treinar(dados_de_treino, generation[i])
+        _, erro_medio_final = treino.treinar(atributos_treino, rotulos_treino, generation[i])
         chromossome_fitness_tuples[i] = (generation[i], erro_medio_final)
     chromossome_fitness_tuples.sort(key=lambda x:x[1])
     return chromossome_fitness_tuples
@@ -78,7 +78,7 @@ def mutation(chromossomes):
 
 
 print(generation)
-_, erro_medio_final = treino.treinar(dados_de_treino, generation[0])
+_, erro_medio_final = treino.treinar(atributos_treino, rotulos_treino, generation[0])
 print(erro_medio_final)
 
 if __name__ == "__main__":

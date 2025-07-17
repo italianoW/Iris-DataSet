@@ -5,15 +5,16 @@ import math
 import numpy as np
 
 POPULATION_SIZE = 20
-generation = [random.randint(1, 250) for _ in range(POPULATION_SIZE)]
 chromossome_fitness_tuples = [0] * POPULATION_SIZE
 dataset = util.download_dados()
 atributos_teste,rotulos_teste,atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
 already_used = []
 
 def main():
+    generation = [random.randint(1, 250) for _ in range(POPULATION_SIZE)]
+    
     for _ in range(20):
-        chromossome_fitness_tuples = fitness_test()
+        chromossome_fitness_tuples = fitness_test(generation)
         sorted_generation = [x[0] for x in chromossome_fitness_tuples]
         sorted_fit_scores = [x[1] for x in chromossome_fitness_tuples]
 
@@ -27,22 +28,21 @@ def main():
         
         generation = new_generation
         print(generation)
-        
-    print(generation[0])
+    
     return generation[0]
 
-def fitness_test():
+def fitness_test(current_generation):
     for i in range(POPULATION_SIZE):
-        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, generation[i], 0.01)
-        epoch_accuracy, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
-        chromossome_fitness_tuples[i] = (generation[i], epoch_accuracy)
+        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, current_generation[i], 0.01)
+        epoch_mse, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
+        chromossome_fitness_tuples[i] = (current_generation[i], epoch_mse)
     chromossome_fitness_tuples.sort(key=lambda x:x[1])
-    chromossome_fitness_tuples.reverse()
     return chromossome_fitness_tuples
 
 def probabilities_calculator(accuracy_array):
-    total = sum(accuracy_array)
-    probabilities = [x / total for x in accuracy_array]
+    inverted = [1 / a for a in accuracy_array]
+    total = sum(inverted)
+    probabilities = [x / total for x in inverted]
     return probabilities
 
 def roulette_choice(chromossomes, probabilities):

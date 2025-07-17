@@ -1,4 +1,5 @@
 """TREINO MODULE."""
+import util
 
 def treinar(atributos, rotulos, epocas):
     """TREINAR."""
@@ -29,7 +30,7 @@ def treinar(atributos, rotulos, epocas):
 
 
         # Calcula erro e acumula perda
-            erro_total += mse(saida, esperado)  
+            erro_total += util.mse(saida, esperado)  
 
         # Backpropagation (ajuste dos pesos)
             for i in range(3):  # para cada neurônio de saída

@@ -80,6 +80,7 @@ def mutation(chromossomes):
 print(generation)
 _, erro_medio_final = treino.treinar(atributos_treino, rotulos_treino, generation[0])
 print(erro_medio_final)
+print('changes')
 
 if __name__ == "__main__":
     main()

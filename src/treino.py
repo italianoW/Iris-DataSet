@@ -1,42 +1,48 @@
-def treinar(dados):
+"""TREINO MODULE."""
 
+def treinar(dados, epocas):
+    """TREINAR."""
     tamanho = len(dados)
     atributos = []
     rotulos = []
 
     for i in range(tamanho):
         atributos.append(dados[i][:4])
-        rotulos.append(0 if dados[i][4]== "Iris-setosa" else 1 if dados[i][4]== "Iris-versicolor" else 2) 
+        if dados[i][4] == "Iris-setosa":
+            rotulos.append(0)
+        elif dados[i][4]== "Iris-versicolor":
+            rotulos.append(1)
+        else:
+            rotulos.append(2)
 
-    nomes_flores = ["Iris-setosa", "Iris-versicolor", "Iris-virginica"]
-
-# === One-hot manual ===
     def one_hot(i, tamanho):
-        vetor = [0] * tamanho #Cria um vetor de valor para indicar tipo de flor
-        vetor[i] = 1      #(relacionado a tabela entrada)
+        """ONE-HOT."""
+        vetor = [0] * tamanho
+        vetor[i] = 1
         return vetor
 
     rotulos_onehot = [one_hot(i, 3) for i in rotulos]
 
-    pesos = [[ 0.1 for _ in range(3)] for _ in range(4)]  # 4 entradas → 3 saídas
+    pesos = [[ 0.1 for _ in range(3)] for _ in range(4)]
     bias = [0.0, 0.0, 0.0]
 
 # Erro quadrático médio (MSE)
     def mse(saida, esperado):
+        """MSE."""
         return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
 
 # === Treinamento ===
     taxa_aprendizado = 0.01
-    epocas = 101
+    erro_medio_final = -1
 
     for epoca in range(epocas):
         erro_total = 0
         for entrada, esperado in zip(atributos, rotulos_onehot):
         # Feedforward (sem função de ativação)
-            saida = [bias[i] + sum(entrada[j] * pesos[j][i] for j in range(4)) for i in range(3)] #avalia com qual petala mais se parece conforme os pesos 
-                                                                                              #previamente dados, dando valores menores para petalas que  
-                                                                                              #parecem menos ex: (-0.9, 3, 1.7).
-        
+            saida = [bias[i] + sum(entrada[j] * pesos[j][i] 
+                                   for j in range(4)) 
+                     for i in range(3)] #avalia com qual petala mais se parece conforme os pesos
+
 
         # Calcula erro e acumula perda
             erro_total += mse(saida, esperado)  
@@ -61,7 +67,8 @@ def treinar(dados):
                                                                   #pesos[3][i] -= 0.1 * 0.3 * 4  → -0.12
                 bias[i] -= taxa_aprendizado * erro
 
-        if epoca % 50 == 0:
+        if epoca == epocas - 1:
             print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
-    return pesos
+            erro_medio_final = erro_total / len(atributos)
 
+    return pesos, erro_medio_final

@@ -5,35 +5,42 @@ import math
 import numpy as np
 
 POPULATION_SIZE = 20
-generation = [random.random() for _ in range(POPULATION_SIZE)]
+generation = [random.randint(1,100)/100 for _ in range(POPULATION_SIZE)]
 chromossome_fitness_tuples = [0] * POPULATION_SIZE
 dataset = util.download_dados()
 atributos_teste,rotulos_teste,atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
 already_used = []
 
 def main():
+    generation = [random.randint(1,100)/100 for _ in range(POPULATION_SIZE)]
     for _ in range(20):
+        #print(generation)
         chromossome_fitness_tuples = fitness_test()
+        #print(chromossome_fitness_tuples)
         sorted_generation = [x[0] for x in chromossome_fitness_tuples]
         sorted_fit_scores = [x[1] for x in chromossome_fitness_tuples]
 
         new_generation = sorted_generation[:(10 * POPULATION_SIZE) // 100]
-
+        #print(sorted_fit_scores)
         probabilities = probabilities_calculator(sorted_fit_scores)
-
+        print(sorted_generation)
         new_generation.extend(crossing_over(sorted_generation, probabilities, new_generation))
 
         new_generation = mutation(new_generation)
         
         generation = new_generation
-        print(generation)
+        print(generation[0])
         
     print(generation[0])
     return generation[0]
 
 def fitness_test():
     for i in range(POPULATION_SIZE):
-        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, 150, generation[i])
+        #print(generation[0])
+        #print(rotulos_treino)
+        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, 50, generation[i])
+        #bias = nan
+        #print(pesos,bias)
         epoch_accuracy, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
         chromossome_fitness_tuples[i] = (generation[i], epoch_accuracy)
     chromossome_fitness_tuples.sort(key=lambda x:x[1])
@@ -46,7 +53,7 @@ def probabilities_calculator(accuracy_array):
     return probabilities
 
 def roulette_choice(chromossomes, probabilities):
-    
+    #print(probabilities)
     first = int(np.random.choice(chromossomes, p=probabilities))
     second = int(np.random.choice(chromossomes, p=probabilities))
     

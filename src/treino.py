@@ -1,7 +1,8 @@
 """TREINO MODULE."""
 import util
+import math
 
-def treinar(atributos, rotulos, epocas, learning_rate):
+def treinar(atributos, rotulos, epocas, taxa_aprendizado):
     """TREINAR."""
     tamanho = len(rotulos)
 
@@ -10,27 +11,30 @@ def treinar(atributos, rotulos, epocas, learning_rate):
         vetor = [0] * tamanho
         vetor[i] = 1
         return vetor
+    
+    def softmax(x):
+        e_x = [math.exp(i) for i in x]
+        soma = sum(e_x)
+        return [i / soma for i in e_x]
 
     rotulos_onehot = [one_hot(i, 3) for i in rotulos]
 
     pesos = [[ 0.1 for _ in range(3)] for _ in range(4)]
     bias = [0.0, 0.0, 0.0]
+    
 
 # === Treinamento ===
-    taxa_aprendizado = learning_rate
+
     erro_medio_final = -1
 
     for epoca in range(epocas):
-        erro_total = 0
+
         for entrada, esperado in zip(atributos, rotulos_onehot):
         # Feedforward (sem função de ativação)
-            saida = [bias[i] + sum(entrada[j] * pesos[j][i] 
+            saida = softmax([bias[i] + sum(entrada[j] * pesos[j][i] 
                                    for j in range(4)) 
-                     for i in range(3)] #avalia com qual petala mais se parece conforme os pesos
+                     for i in range(3)]) #avalia com qual petala mais se parece conforme os pesos
 
-
-        # Calcula erro e acumula perda
-            erro_total += util.mse(saida, esperado)  
 
         # Backpropagation (ajuste dos pesos)
             for i in range(3):  # para cada neurônio de saída
@@ -52,8 +56,20 @@ def treinar(atributos, rotulos, epocas, learning_rate):
                                                                   #pesos[3][i] -= 0.1 * 0.3 * 4  → -0.12
                 bias[i] -= taxa_aprendizado * erro
 
-        #if epoca == epocas - 1:
-            #print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
-            
-
+                #def isNaNlist(lista):
+                #    for n in lista:
+                #        if math.isnan(n):
+                #            return False
+                #    return True
+                #def isNaNmatriz(matriz):
+                 #   for n in matriz:
+                 #       for m in n:
+                 #           if math.isnan(m):
+                 #               return False
+                 #   return True
+                    
+                #if isNaNlist(bias) and isNaNmatriz(pesos):
+                #    print(pesos ,bias)
+                            
+    #print(bias)
     return pesos, bias

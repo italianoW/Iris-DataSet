@@ -47,10 +47,12 @@ def mse(saida, esperado):
 def avaliar(bias, modelo, atributos_teste, rotulos_teste):
 
     tamanho = len(rotulos_teste)
-    
-    for i in range(tamanho):
-        saida = [bias[i] + sum(atributos_teste[j] * modelo[j][i] for j in range(4))for i in range(3)]
-        erro_total += mse(saida, rotulos_teste[i])
+    erro_total = 0
+
+    for atributos,saida in zip(atributos_teste,rotulos_teste):
+        
+        saida = [bias[i] + sum(atributos[j] * modelo[j][i] for j in range(4))for i in range(3)]
+        erro_total += mse(saida, rotulos_teste)
 
     return erro_total, bias
 

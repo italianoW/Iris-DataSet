@@ -1,7 +1,8 @@
 import pandas as pd
 import kagglehub
 import os
-from treino import mse
+import treino
+
 def download_dados(): #returns data from iris_dataset 
 
     path = kagglehub.dataset_download("vikrishnan/iris-dataset")
@@ -12,8 +13,8 @@ def divisao_treino_teste(dados):
 
     lista = dados.values.tolist()
     tamanho = len(lista)
-    treino,teste = []
-    atributos_teste, rotulos_teste, atributos_treino, rotulos_treino = []
+    treino,teste = [], []
+    atributos_teste, rotulos_teste, atributos_treino, rotulos_treino = [], [], [], []
 
         #lista[0], lista[48]
         #lista[49],lista[98])
@@ -31,15 +32,16 @@ def divisao_treino_teste(dados):
 
     for i in range(99):
         atributos_treino.append(treino[i][:4])
-        rotulos_treino.append(0 if dados[i][4]== "Iris-setosa" else 1 if dados[i][4]== "Iris-versicolor" else 2) 
+        rotulos_treino.append(0 if lista[i][4]== "Iris-setosa" else 1 if lista[i][4]== "Iris-versicolor" else 2) 
 
     for i in range(51):
         atributos_teste.append(treino[i][:4])
-        rotulos_teste.append(0 if dados[i][4]== "Iris-setosa" else 1 if dados[i][4]== "Iris-versicolor" else 2) 
+        rotulos_teste.append(0 if lista[i][4]== "Iris-setosa" else 1 if lista[i][4]== "Iris-versicolor" else 2) 
 
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
 
-def avaliar(bias,modelo,atributos_teste,rotulos_teste):
+def avaliar(bias, modelo, atributos_teste, rotulos_teste):
+
     tamanho = len(rotulos_teste)
     
     for i in range(tamanho):

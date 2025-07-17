@@ -1,6 +1,10 @@
+def mse(saida, esperado):
+        """MSE."""
+        return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
+
 """TREINO MODULE."""
 
-def treinar(atributos,rotulos, epocas):
+def treinar(atributos, rotulos, epocas):
     """TREINAR."""
     tamanho = len(rotulos)
 
@@ -14,11 +18,6 @@ def treinar(atributos,rotulos, epocas):
 
     pesos = [[ 0.1 for _ in range(3)] for _ in range(4)]
     bias = [0.0, 0.0, 0.0]
-
-# Erro quadrático médio (MSE)
-    def mse(saida, esperado):
-        """MSE."""
-        return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
 
 # === Treinamento ===
     taxa_aprendizado = 0.01
@@ -57,7 +56,7 @@ def treinar(atributos,rotulos, epocas):
                 bias[i] -= taxa_aprendizado * erro
 
         if epoca == epocas - 1:
-            # print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
+            print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
             erro_medio_final = erro_total / len(atributos)
 
     return pesos, erro_medio_final

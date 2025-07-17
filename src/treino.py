@@ -1,7 +1,7 @@
 """TREINO MODULE."""
 import util
 
-def treinar(atributos, rotulos, epocas):
+def treinar(atributos, rotulos, epocas, learning_rate):
     """TREINAR."""
     tamanho = len(rotulos)
 
@@ -17,7 +17,7 @@ def treinar(atributos, rotulos, epocas):
     bias = [0.0, 0.0, 0.0]
 
 # === Treinamento ===
-    taxa_aprendizado = 0.01
+    taxa_aprendizado = learning_rate
     erro_medio_final = -1
 
     for epoca in range(epocas):
@@ -52,8 +52,8 @@ def treinar(atributos, rotulos, epocas):
                                                                   #pesos[3][i] -= 0.1 * 0.3 * 4  → -0.12
                 bias[i] -= taxa_aprendizado * erro
 
-        if epoca == epocas - 1:
-            print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
-            erro_medio_final = erro_total / len(atributos)
+        #if epoca == epocas - 1:
+            #print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
+            
 
-    return pesos, erro_medio_final
+    return pesos, bias

@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 POPULATION_SIZE = 20
-generation = [random.randint(1, 250) for _ in range(POPULATION_SIZE)]
+generation = [random.random() for _ in range(POPULATION_SIZE)]
 chromossome_fitness_tuples = [0] * POPULATION_SIZE
 dataset = util.download_dados()
 atributos_teste,rotulos_teste,atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
@@ -33,7 +33,7 @@ def main():
 
 def fitness_test():
     for i in range(POPULATION_SIZE):
-        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, generation[i], 0.01)
+        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, 150, generation[i])
         epoch_accuracy, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
         chromossome_fitness_tuples[i] = (generation[i], epoch_accuracy)
     chromossome_fitness_tuples.sort(key=lambda x:x[1])
@@ -76,7 +76,6 @@ def mutation(chromossomes):
         chromossomes[mutated] = math.ceil(chromossomes[mutated] * 1.1)
     
     return chromossomes
-
 
 if __name__ == "__main__":
     main()

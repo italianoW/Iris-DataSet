@@ -1,4 +1,10 @@
 # Iris-DataSet
+
+## Nome das Flores
+- Iris-setosa 
+- Iris-versicolor
+- Iris-virginica
+
 ## MAIN
 ### Dependency downloads
 `pip install pandas`

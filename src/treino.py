@@ -1,7 +1,3 @@
-def mse(saida, esperado):
-        """MSE."""
-        return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
-
 """TREINO MODULE."""
 
 def treinar(atributos, rotulos, epocas):

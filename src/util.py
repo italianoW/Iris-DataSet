@@ -1,7 +1,7 @@
 import pandas as pd
 import kagglehub
 import os
-import treino
+
 
 def download_dados(): #returns data from iris_dataset 
 
@@ -40,6 +40,10 @@ def divisao_treino_teste(dados):
 
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
 
+def mse(saida, esperado):
+        """MSE."""
+        return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
+
 def avaliar(bias, modelo, atributos_teste, rotulos_teste):
 
     tamanho = len(rotulos_teste)
@@ -50,5 +54,5 @@ def avaliar(bias, modelo, atributos_teste, rotulos_teste):
 
     return erro_total, bias
 
-    
+
     

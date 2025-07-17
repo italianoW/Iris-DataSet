@@ -1,21 +1,20 @@
-"""UTIL MODULE."""
-import os
 import pandas as pd
 import kagglehub
+import os
+from treino import mse
+def download_dados(): #returns data from iris_dataset 
 
-def download_dados(): #returns data from iris_dataset
-    """DOWNLOAD DADOS."""
     path = kagglehub.dataset_download("vikrishnan/iris-dataset")
     print(os.listdir(path))
     return pd.read_csv(os.path.join(path, 'iris.data.csv'))
 
 def divisao_treino_teste(dados):
-    """DIVISAO TREINO TESTE."""
+
     lista = dados.values.tolist()
     tamanho = len(lista)
-    train = []
-    test = []
-    print(tamanho)
+    treino,teste = []
+    atributos_teste, rotulos_teste, atributos_treino, rotulos_treino = []
+
         #lista[0], lista[48]
         #lista[49],lista[98])
         #lista[99],lista[148])
@@ -24,10 +23,30 @@ def divisao_treino_teste(dados):
 
     for i in range(3):
         for j in range(33):
-            train.append(lista[i*50 + j])
-
+            treino.append(lista[i*50 + j])
+    
     for i in range(3):
         for j in range(17):
-            test.append(lista[i*50 + 33 + j])
+            teste.append(lista[i*50 + 33 + j])
 
-    return train,test
+    for i in range(99):
+        atributos_treino.append(treino[i][:4])
+        rotulos_treino.append(0 if dados[i][4]== "Iris-setosa" else 1 if dados[i][4]== "Iris-versicolor" else 2) 
+
+    for i in range(51):
+        atributos_teste.append(treino[i][:4])
+        rotulos_teste.append(0 if dados[i][4]== "Iris-setosa" else 1 if dados[i][4]== "Iris-versicolor" else 2) 
+
+    return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
+
+def avaliar(bias,modelo,atributos_teste,rotulos_teste):
+    tamanho = len(rotulos_teste)
+    
+    for i in range(tamanho):
+        saida = [bias[i] + sum(atributos_teste[j] * modelo[j][i] for j in range(4))for i in range(3)]
+        erro_total += mse(saida, rotulos_teste[i])
+
+    return erro_total, bias
+
+    
+    

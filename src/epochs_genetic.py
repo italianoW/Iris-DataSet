@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 POPULATION_SIZE = 20
-generation = [random.randint(1, 150) for _ in range(POPULATION_SIZE)]
+generation = [random.randint(1, 250) for _ in range(POPULATION_SIZE)]
 chromossome_fitness_tuples = [0] * POPULATION_SIZE
 dataset = util.download_dados()
 dados_de_treino, dados_de_teste = util.divisao_treino_teste(dataset)
@@ -14,23 +14,20 @@ already_used = []
 def main():
     for _ in range(20):
         chromossome_fitness_tuples = fitness_test()
-        print(chromossome_fitness_tuples)
         sorted_generation = [x[0] for x in chromossome_fitness_tuples]
         sorted_fit_scores = [x[1] for x in chromossome_fitness_tuples]
-        print(sorted_generation)
 
         new_generation = sorted_generation[:(10 * POPULATION_SIZE) // 100]
-        print(new_generation)
 
         probabilities = probabilities_calculator(sorted_fit_scores)
-        print(probabilities)
 
         new_generation.extend(crossing_over(sorted_generation, probabilities, new_generation))
 
         new_generation = mutation(new_generation)
         
         generation = new_generation
-    
+        print(generation)
+        
     print(generation[0])
     return generation[0]
 
@@ -49,19 +46,19 @@ def probabilities_calculator(generation):
 
 def roulette_choice(chromossomes, probabilities):
     
-    first =np.random.choice(chromossomes, p=probabilities)
-    second = np.random.choice(chromossomes, p=probabilities)
+    first = int(np.random.choice(chromossomes, p=probabilities))
+    second = int(np.random.choice(chromossomes, p=probabilities))
     
     while first in already_used:
-        first = np.random.choice(chromossomes, p=probabilities)
+        first = int(np.random.choice(chromossomes, p=probabilities))
       
     while second in already_used or first == second:
-        second = np.random.choice(chromossomes, p=probabilities)
+        second = int(np.random.choice(chromossomes, p=probabilities))
           
     return first, second
 
 
-def crossing_over(chromossomes, probabilities, new_generation):
+def crossing_over(chromossomes, probabilities, new_chromossomes):
     already_used = []
     for _ in range((90 * POPULATION_SIZE) // 100):
         parent1, parent2 = roulette_choice(chromossomes, probabilities)
@@ -69,8 +66,8 @@ def crossing_over(chromossomes, probabilities, new_generation):
         already_used.append(parent2)
         
         child = (parent1 + parent2) // 2
-        new_generation.append(child)
-    return new_generation
+        new_chromossomes.append(child)
+    return new_chromossomes
 
 def mutation(chromossomes):
     for _ in range((10 * POPULATION_SIZE) // 100):

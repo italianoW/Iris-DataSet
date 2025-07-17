@@ -68,7 +68,7 @@ def treinar(dados, epocas):
                 bias[i] -= taxa_aprendizado * erro
 
         if epoca == epocas - 1:
-            print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
+            # print(f"Época {epoca} | Erro médio: {erro_total / len(atributos):.4f}")
             erro_medio_final = erro_total / len(atributos)
 
     return pesos, erro_medio_final

@@ -31,27 +31,26 @@ def main():
 
 def fitness_test(current_generation):
     for i in range(POPULATION_SIZE):
-        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, 50, current_generation[i])
+        pesos, bias = treino.treinar(atributos_treino, rotulos_treino, 170, current_generation[i])
         epoch_accuracy, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
         chromossome_fitness_tuples[i] = (current_generation[i], epoch_accuracy)
-    chromossome_fitness_tuples.sort(key=lambda x:x[1])
+    chromossome_fitness_tuples.sort(key=lambda x:x[1], reverse=True)
     return chromossome_fitness_tuples
 
 def probabilities_calculator(accuracy_array):
-    inverted = [1 / a for a in accuracy_array]
-    total = sum(inverted)
-    probabilities = [x / total for x in inverted]
+    total = sum(accuracy_array)
+    probabilities = [x / total for x in accuracy_array]
     return probabilities
 
 def roulette_choice(chromossomes, probabilities):
-    first = float(np.random.choice(chromossomes, p=probabilities))
-    second = float(np.random.choice(chromossomes, p=probabilities))
+    first = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
+    second = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
     
     while first in already_used:
-        first = float(np.random.choice(chromossomes, p=probabilities))
+        first = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
       
     while second in already_used or first == second:
-        second = float(np.random.choice(chromossomes, p=probabilities))
+        second = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
           
     return first, second
 

@@ -12,6 +12,9 @@ def treinar(atributos, rotulos, epocas, taxa_aprendizado):
         vetor[i] = 1
         return vetor
     
+    def relu(x):
+        return [max(0, v) for v in x]
+    
     def softmax(x):
         e_x = [math.exp(i) for i in x]
         soma = sum(e_x)
@@ -31,9 +34,10 @@ def treinar(atributos, rotulos, epocas, taxa_aprendizado):
 
         for entrada, esperado in zip(atributos, rotulos_onehot):
         # Feedforward (sem função de ativação)
-            saida = softmax([bias[i] + sum(entrada[j] * pesos[j][i] 
+            saida_linear = softmax([bias[i] + sum(entrada[j] * pesos[j][i] 
                                    for j in range(4)) 
                      for i in range(3)]) #avalia com qual petala mais se parece conforme os pesos
+            saida = softmax(relu(saida_linear))
 
 
         # Backpropagation (ajuste dos pesos)

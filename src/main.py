@@ -2,6 +2,7 @@
 
 import treino
 import util
+import random
 
 def main():
     """MAIN."""

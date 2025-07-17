@@ -1,13 +1,17 @@
 import pandas as pd
 import kagglehub
 import os
+import math
 
 
 def download_dados(): #returns data from iris_dataset 
 
     path = kagglehub.dataset_download("vikrishnan/iris-dataset")
     print(os.listdir(path))
-    return pd.read_csv(os.path.join(path, 'iris.data.csv'))
+    data = pd.read_csv(os.path.join(path, 'iris.data.csv'))
+    shuffled_data = data.sample(frac=1).reset_index(drop=True)
+    print(shuffled_data)
+    return shuffled_data
 
 def divisao_treino_teste(dados):
 
@@ -45,16 +49,20 @@ def mse(saida, esperado):
         return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
 
 def avaliar(bias, modelo, atributos_teste, rotulos_teste):
+    acertos = 0
+    for atributos, rotulo in zip(atributos_teste, rotulos_teste):
+        saida = [bias[i] + sum(atributos[j] * modelo[j][i] for j in range(4)) for i in range(3)]
+        saida = softmax(saida)
+        pred = saida.index(max(saida))
+        if pred == rotulo:
+            acertos += 1
+    accuracy = acertos / len(rotulos_teste)
+    return accuracy, bias
 
-    tamanho = len(rotulos_teste)
-    erro_total = 0
-
-    for atributos,saida in zip(atributos_teste,rotulos_teste):
-        
-        saida = [bias[i] + sum(atributos[j] * modelo[j][i] for j in range(4))for i in range(3)]
-        erro_total += mse(saida, rotulos_teste)
-
-    return erro_total, bias
+def softmax(x):
+        e_x = [math.exp(i) for i in x]
+        soma = sum(e_x)
+        return [i / soma for i in e_x]
 
 
     

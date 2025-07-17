@@ -11,12 +11,13 @@ atributos_teste,rotulos_teste,atributos_treino,rotulos_treino = util.divisao_tre
 already_used = []
 
 def main():
-    generation = [random.randint(1, 250) for _ in range(POPULATION_SIZE)]
+    generation = [random.randint(1, 220) for _  in range(POPULATION_SIZE)]
     
     for _ in range(20):
         chromossome_fitness_tuples = fitness_test(generation)
         sorted_generation = [x[0] for x in chromossome_fitness_tuples]
         sorted_fit_scores = [x[1] for x in chromossome_fitness_tuples]
+        
 
         new_generation = sorted_generation[:(10 * POPULATION_SIZE) // 100]
 
@@ -28,21 +29,24 @@ def main():
         
         generation = new_generation
         print(generation)
-    
+        
+    #print(generation)
     return generation[0]
 
 def fitness_test(current_generation):
     for i in range(POPULATION_SIZE):
         pesos, bias = treino.treinar(atributos_treino, rotulos_treino, current_generation[i], 0.01)
-        epoch_mse, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
-        chromossome_fitness_tuples[i] = (current_generation[i], epoch_mse)
+        #print(f"Epoch: {current_generation[i]}, First weight: {pesos[0][0]:.4f}")
+        accuracy, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
+        print(f"Epoch: {current_generation[i]}, Accuracy: {accuracy:.7f}")
+        chromossome_fitness_tuples[i] = (current_generation[i], accuracy)
     chromossome_fitness_tuples.sort(key=lambda x:x[1])
+    chromossome_fitness_tuples.reverse()
     return chromossome_fitness_tuples
 
 def probabilities_calculator(accuracy_array):
-    inverted = [1 / a for a in accuracy_array]
-    total = sum(inverted)
-    probabilities = [x / total for x in inverted]
+    total = sum(accuracy_array)
+    probabilities = [x / total for x in accuracy_array]
     return probabilities
 
 def roulette_choice(chromossomes, probabilities):
@@ -73,7 +77,7 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
 def mutation(chromossomes):
     for _ in range((10 * POPULATION_SIZE) // 100):
         mutated = random.randint(0, POPULATION_SIZE - 1)
-        chromossomes[mutated] = math.ceil(chromossomes[mutated] * 1.1)
+        chromossomes[mutated] = min((math.ceil(chromossomes[mutated] * 1.1)), 200)
     
     return chromossomes
 

@@ -1,4 +1,4 @@
-"""CHANGE!!!"""
+"""Main file for the Iris dataset classification using a neural network."""
 
 import os
 import treino
@@ -12,7 +12,7 @@ resp, flower = [], []
 CLASSES = {0: "Setosa", 1: "Versicolor", 2: "Virginica"}
 
 def main():
-    """CHANGE!!!"""
+    """Main function to run the Iris dataset classification."""
     if not os.path.exists(fpath):
         dataset = util.download_dados()
         _, _, atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
@@ -24,10 +24,9 @@ def main():
             learning_rate = learning_rate_genetic.envolve(epochs)
 
         pesos, _ = treino.treinar(atributos_treino,rotulos_treino,epochs,learning_rate)
-        # Pasta para salvar
+
         os.makedirs(PASTA, exist_ok=True)
 
-        # Salvar os valores no arquivo (sem cabeçalho)
         with open(fpath, "w", encoding="utf-8") as f:
             for linha in pesos:
                 linha_str = ",".join(str(valor) for valor in linha)
@@ -37,8 +36,8 @@ def main():
 
     with open(fpath, "r", encoding="utf-8") as f:
         for linha in f:
-            valores = linha.strip().split(",")      # Remove o \n e divide pelos ','
-            linha_convertida = [float(v) for v in valores]  # Converte cada string para float
+            valores = linha.strip().split(",")
+            linha_convertida = [float(v) for v in valores]
             pesos.append(linha_convertida)
 
     while True:

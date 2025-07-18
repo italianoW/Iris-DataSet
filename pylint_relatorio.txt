@@ -1,47 +1,43 @@
-************* Module epochs_genetic
-src\epochs_genetic.py:31:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:33:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:51:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:54:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:57:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:60:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:70:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:79:0: C0303: Trailing whitespace (trailing-whitespace)
-src\epochs_genetic.py:88:0: C0304: Final newline missing (missing-final-newline)
-src\epochs_genetic.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-src\epochs_genetic.py:14:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\epochs_genetic.py:16:8: W0621: Redefining name 'chromossome_fitness_tuples' from outer scope (line 9) (redefined-outer-name)
-src\epochs_genetic.py:32:8: W0621: Redefining name 'generation' from outer scope (line 8) (redefined-outer-name)
-src\epochs_genetic.py:18:29: E1136: Value 'x' is unsubscriptable (unsubscriptable-object)
-src\epochs_genetic.py:19:29: E1136: Value 'x' is unsubscriptable (unsubscriptable-object)
-src\epochs_genetic.py:37:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\epochs_genetic.py:39:11: W0621: Redefining name 'erro_medio_final' from outer scope (line 84) (redefined-outer-name)
-src\epochs_genetic.py:44:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\epochs_genetic.py:44:29: W0621: Redefining name 'generation' from outer scope (line 8) (redefined-outer-name)
-src\epochs_genetic.py:50:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\epochs_genetic.py:64:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\epochs_genetic.py:65:4: W0621: Redefining name 'already_used' from outer scope (line 12) (redefined-outer-name)
-src\epochs_genetic.py:75:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\epochs_genetic.py:4:0: C0411: standard import "math" should be placed before first party imports "treino", "util"  (wrong-import-order)
-src\epochs_genetic.py:5:0: C0411: third party import "numpy" should be placed before first party imports "treino", "util"  (wrong-import-order)
-************* Module treino
-src\treino.py:42:59: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:43:53: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:48:46: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:52:0: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:53:0: C0301: Line too long (132/100) (line-too-long)
-src\treino.py:54:0: C0301: Line too long (102/100) (line-too-long)
-src\treino.py:55:0: C0301: Line too long (136/100) (line-too-long)
-src\treino.py:56:0: C0301: Line too long (150/100) (line-too-long)
-src\treino.py:57:0: C0301: Line too long (136/100) (line-too-long)
-src\treino.py:60:0: C0301: Line too long (118/100) (line-too-long)
-src\treino.py:63:0: C0301: Line too long (118/100) (line-too-long)
-src\treino.py:64:0: C0301: Line too long (104/100) (line-too-long)
-src\treino.py:65:0: C0301: Line too long (115/100) (line-too-long)
-src\treino.py:66:0: C0301: Line too long (104/100) (line-too-long)
-src\treino.py:67:0: C0301: Line too long (104/100) (line-too-long)
-src\treino.py:3:0: R0914: Too many local variables (20/15) (too-many-locals)
+************* Module util
+src\util.py:1:0: R0801: Similar lines in 2 files
+==epochs_genetic:[22:43]
+==learning_rate_genetic:[20:38]
+        sorted_generation = [chrmss for chrmss, _ in chromossome_fitness_tuples]
+        sorted_fit_scores = [fitness for _, fitness in chromossome_fitness_tuples]
+
+        new_generation = sorted_generation[:(10 * POPULATION_SIZE) // 100]
+        probabilities = probabilities_calculator(sorted_fit_scores)
+        new_generation.extend(crossing_over(sorted_generation, probabilities, new_generation))
+
+        new_generation = mutation(new_generation)
+
+        generation = new_generation
+
+    return generation[0]
+
+def fitness_test(crrt_gen, train_epochs):
+    """CHANGE!!!"""
+    for i in range(POPULATION_SIZE):
+        accs = []
+        for _ in range(2): (duplicate-code)
+src\util.py:1:0: R0801: Similar lines in 2 files
+==epochs_genetic:[71:85]
+==learning_rate_genetic:[66:80]
+        if attempts > 2:
+            break
+
+    return first, second
+
+
+def crossing_over(chromossomes, probabilities, new_chromossomes):
+    """CHANGE!!!"""
+    already_used.clear()
+    for _ in range((90 * POPULATION_SIZE) // 100):
+        parent1, parent2 = roulette_choice(chromossomes, probabilities)
+        already_used.append(parent1)
+        already_used.append(parent2)
+ (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 6.23/10 (previous run: 6.08/10, +0.15)
+Your code has been rated at 9.92/10 (previous run: 9.85/10, +0.08)
 

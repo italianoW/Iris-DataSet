@@ -60,19 +60,31 @@ def divisao_treino_teste(dados):
 
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
 
-def avaliar(bias, modelo, atributos_teste, rotulos_teste):
+def avaliar(pesos_entrada_oculta, bias_oculta, saida_oculta_pesos, bias_saida, atributos_teste, rotulos_teste):
     """Evaluate the model's performance on the test set."""
     acertos = 0
-    for atributos, rotulo in zip(atributos_teste, rotulos_teste):
-        saida = relu([bias[i] + sum(atributos[j] * modelo[j][i]
-                                    for j in range(4))
-                      for i in range(3)])
-        saida = softmax(saida)
+    for entrada, rotulo in zip(atributos_teste, rotulos_teste):
+        # Forward: entrada → oculta
+        entrada_oculta = [
+            bias_oculta[i] + sum(entrada[j] * pesos_entrada_oculta[j][i] for j in range(4))
+            for i in range(4)
+        ]
+        ativacao_oculta = sigmoid(entrada_oculta)
+
+        # Forward: oculta → saída
+        entrada_saida = [
+            bias_saida[i] + sum(ativacao_oculta[j] * saida_oculta_pesos[j][i] for j in range(4))
+            for i in range(3)
+        ]
+        saida = softmax(entrada_saida)
+
         pred = saida.index(max(saida))
         if pred == rotulo:
             acertos += 1
+
     accuracy = acertos / len(rotulos_teste)
-    return accuracy, bias
+    
+    return accuracy, bias_oculta, bias_saida
 
 def softmax(x):
     """Calculate the softmax of a list of values."""
@@ -81,6 +93,5 @@ def softmax(x):
     soma = sum(e_x)
     return [i / soma for i in e_x]
 
-def relu(x):
-    """Apply the ReLU activation function to a list of values."""
-    return [max(0,v) for v in x]
+def sigmoid(x):
+        return [1 / (1 + math.exp(-v)) for v in x]

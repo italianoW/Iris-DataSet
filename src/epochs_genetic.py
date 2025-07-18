@@ -41,8 +41,8 @@ def fitness_test(curr_gen, train_learn_rt):
     for i in range(POPULATION_SIZE):
         accs = []
         for _ in range(2):
-            pesos, bias = treino.treinar(attr_trein, rot_treino, curr_gen[i], train_learn_rt)
-            acc, _ = util.avaliar(bias, pesos, atributos_teste, rotulos_teste)
+            pesos_entrada_oculta, saida_oculta_pesos, bias_oculta, bias_saida = treino.treinar(attr_trein, rot_treino, curr_gen[i], train_learn_rt)
+            acc, _, _ = util.avaliar(pesos_entrada_oculta, bias_oculta, saida_oculta_pesos, bias_saida, atributos_teste, rotulos_teste)
             accs.append(acc)
         avg_accuracy = sum(accs) / len(accs)
         chromossome_fitness_tuples[i] = (curr_gen[i], avg_accuracy)

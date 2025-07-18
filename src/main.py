@@ -6,14 +6,18 @@ import util
 import epochs_genetic
 import learning_rate_genetic
 
-fpath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "pesos.csv")
+fpath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "model")
+path1 = os.path.join(fpath,"pesos_entrada_oculta.csv")
+path2 = os.path.join(fpath,"saida_oculta_pesos.csv")
+
+
 PASTA = "model_data"
 resp, flower = [], []
 CLASSES = {0: "Setosa", 1: "Versicolor", 2: "Virginica"}
 
 def main():
     """Main function to run the Iris dataset classification."""
-    if not os.path.exists(fpath):
+    if (not os.path.exists(path1)) or (not os.path.exists(path2)):
         dataset = util.download_dados()
         dados_shufle = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
         _, _, atributos_treino,rotulos_treino = util.divisao_treino_teste(dados_shufle)
@@ -24,17 +28,25 @@ def main():
             epochs = epochs_genetic.envolve(learning_rate)
             learning_rate = learning_rate_genetic.envolve(epochs)
 
-        pesos, _ = treino.treinar(atributos_treino,rotulos_treino,epochs,learning_rate)
+        pesos_entrada_oculta, saida_oculta_pesos, _, _ = treino.treinar(atributos_treino,rotulos_treino,epochs,learning_rate)
 
         os.makedirs(PASTA, exist_ok=True)
+        os.makedirs(fpath, exist_ok=True)
 
-        with open(fpath, "w", encoding="utf-8") as f:
-            for linha in pesos:
+        with open(path1, "w", encoding="utf-8") as f:
+            for linha in pesos_entrada_oculta:
                 f.write(",".join(str(valor) for valor in linha) + "\n")
-
+        with open(path2, "w", encoding="utf-8") as f:
+            for linha in saida_oculta_pesos:
+                f.write(",".join(str(valor) for valor in linha) + "\n")
     pesos = []
 
-    with open(fpath, "r", encoding="utf-8") as f:
+    with open(path1, "r", encoding="utf-8") as f:
+        for linha in f:
+            valores = linha.strip().split(",")
+            linha_convertida = [float(v) for v in valores]
+            pesos.append(linha_convertida)
+    with open(path2, "r", encoding="utf-8") as f:
         for linha in f:
             valores = linha.strip().split(",")
             linha_convertida = [float(v) for v in valores]

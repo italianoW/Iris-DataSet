@@ -37,7 +37,7 @@ def divisao_treino_teste(dados):
             rotulos_treino.append(0)
         elif lista[i][4]== "Iris-versicolor":
             rotulos_treino.append(1)
-        else:
+        elif lista[i][4]== "Iris-virginica":
             rotulos_treino.append(2)
 
     for i in range(51):
@@ -47,14 +47,10 @@ def divisao_treino_teste(dados):
             rotulos_teste.append(0)
         elif lista[i][4]== "Iris-versicolor":
             rotulos_teste.append(1)
-        else:
+        elif lista[i][4]== "Iris-virginica":
             rotulos_teste.append(2)
 
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
-
-def mse(saida, esperado):
-    """Calculate the Mean Squared Error (MSE) between the predicted output and expected output."""
-    return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
 
 def avaliar(bias, modelo, atributos_teste, rotulos_teste):
     """Evaluate the model's performance on the test set."""

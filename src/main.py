@@ -15,7 +15,7 @@ def main():
         epochs = epochs_genetic.envolve(0.1)
         learning_rate = learning_rate_genetic.envolve(epochs)
         for _ in range(3):
-            print("bob")
+            
             epochs = epochs_genetic.envolve(learning_rate)
             learning_rate = learning_rate_genetic.envolve(epochs)
 
@@ -47,7 +47,6 @@ def main():
         pl = float(input())
         print("PetalWidthCm:")
         pw = float(input())
-        print("Species:")
         
         flower = (sl, sw, pl, pw)
         

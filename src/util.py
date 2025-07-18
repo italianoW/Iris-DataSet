@@ -27,9 +27,6 @@ def divisao_treino_teste(dados):
         for j in range(17):
             teste.append(lista[i*50 + 33 + j])
 
-    random.shuffle(treino)
-    random.shuffle(teste)
-
     for i in range(99):
         atributos_treino.append(treino[i][:4])
 

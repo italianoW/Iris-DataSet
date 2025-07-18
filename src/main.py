@@ -15,7 +15,8 @@ def main():
     """Main function to run the Iris dataset classification."""
     if not os.path.exists(fpath):
         dataset = util.download_dados()
-        _, _, atributos_treino,rotulos_treino = util.divisao_treino_teste(dataset)
+        dados_shufle = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
+        _, _, atributos_treino,rotulos_treino = util.divisao_treino_teste(dados_shufle)
         epochs = epochs_genetic.envolve(0.1)
         learning_rate = learning_rate_genetic.envolve(epochs)
         for _ in range(3):

@@ -1,25 +1,4 @@
 ************* Module util
-src\util.py:7:53: C0303: Trailing whitespace (trailing-whitespace)
-src\util.py:9:0: C0301: Line too long (116/100) (line-too-long)
-src\util.py:27:0: C0303: Trailing whitespace (trailing-whitespace)
-src\util.py:34:112: C0303: Trailing whitespace (trailing-whitespace)
-src\util.py:34:0: C0301: Line too long (112/100) (line-too-long)
-src\util.py:38:111: C0303: Trailing whitespace (trailing-whitespace)
-src\util.py:38:0: C0301: Line too long (111/100) (line-too-long)
-src\util.py:43:0: W0311: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
-src\util.py:44:0: W0311: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
-src\util.py:49:0: C0301: Line too long (102/100) (line-too-long)
-src\util.py:64:0: C0304: Final newline missing (missing-final-newline)
-src\util.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-src\util.py:7:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\util.py:11:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\util.py:14:4: W0612: Unused variable 'tamanho' (unused-variable)
-src\util.py:46:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\util.py:57:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\util.py:63:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\util.py:3:0: C0411: standard import "os" should be placed before third party imports "pandas", "kagglehub" (wrong-import-order)
-src\util.py:4:0: C0411: standard import "math" should be placed before third party imports "pandas", "kagglehub" (wrong-import-order)
-src\util.py:2:0: W0611: Unused import kagglehub (unused-import)
 src\util.py:1:0: R0801: Similar lines in 2 files
 ==epochs_genetic:[22:43]
 ==learning_rate_genetic:[20:38]
@@ -60,5 +39,5 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
  (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.09/10 (previous run: 9.06/10, +0.04)
+Your code has been rated at 9.92/10 (previous run: 9.85/10, +0.08)
 

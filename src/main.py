@@ -42,14 +42,16 @@ def main():
             pesos.append(linha_convertida)
 
     while True:
-        print("SepalLengthCm:")
-        flower.append(float(input()))
-        print("SepalWidthCm:")
-        flower.append(float(input()))
-        print("PetalLengthCm:")
-        flower.append(float(input()))
-        print("PetalWidthCm:")
-        flower.append(float(input()))
+        a = input("Deseja classificar uma flor? (s/n): ").strip().lower()
+        if a != "s":
+            print("Saindo do programa.")
+            break     
+          
+        print("Digite os atributos da flor:")
+        flower.append(float(input("SepalLengthCm:")))
+        flower.append(float(input("SepalWidthCm:")))
+        flower.append(float(input("PetalLengthCm:")))
+        flower.append(float(input("PetalWidthCm:")))
 
         for i in range(3):  # 3 classes
             score = 0

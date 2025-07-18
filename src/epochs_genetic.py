@@ -9,7 +9,7 @@ import util
 random.seed(42)
 np.random.seed(42)
 POPULATION_SIZE = 20
-chromossome_fitness_tuples = [0] * POPULATION_SIZE
+chromossome_fitness_tuples = [(0, 0)] * POPULATION_SIZE
 dataset = util.download_dados()
 atributos_teste,rotulos_teste,attr_trein,rot_treino = util.divisao_treino_teste(dataset)
 already_used = []

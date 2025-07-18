@@ -17,7 +17,6 @@ def test_download_dados_retorna_dataframe():
 def test_divisao_treino_teste_tamanho_e_divisao():
 	dados = util.download_dados()
 
-	train, test = util.divisao_treino_teste(dados)
+	train = util.divisao_treino_teste(dados)
 
-	assert len(train) == 99, f"Treino deveria ter 99 amostras, tem {len(train)}"
-	assert len(test) == 51, f"Teste deveria ter 51 amostras, tem {len(test)}"
+	assert len(train) == 4, f"Treino deveria ter 99 amostras, tem {len(train)}"

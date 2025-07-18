@@ -20,32 +20,44 @@ def divisao_treino_teste(dados):
     lista.insert(0,lista[0])
 
     for i in range(3):
-        for j in range(33):
+        for j in range(40):
             treino.append(lista[i*50 + j])
 
     for i in range(3):
-        for j in range(17):
+        for j in range(10):
             teste.append(lista[i*50 + 33 + j])
-
-    for i in range(99):
-        atributos_treino.append(treino[i][:4])
-
-        if lista[i][4]== "Iris-setosa":
-            rotulos_treino.append(0)
-        elif lista[i][4]== "Iris-versicolor":
-            rotulos_treino.append(1)
-        elif lista[i][4]== "Iris-virginica":
-            rotulos_treino.append(2)
-
-    for i in range(51):
-        atributos_teste.append(treino[i][:4])
-
-        if lista[i][4]== "Iris-setosa":
-            rotulos_teste.append(0)
-        elif lista[i][4]== "Iris-versicolor":
-            rotulos_teste.append(1)
-        elif lista[i][4]== "Iris-virginica":
-            rotulos_teste.append(2)
+    
+    c1 = 33
+    c2 = 33
+    c3 = 33
+    for item in lista:
+        if item[4] == "Iris-setosa":
+              if c1 > 0:
+                  c1 -= 1
+                  rotulos_treino.append(0)
+                  atributos_treino.append(item[:4])
+              else:
+                  rotulos_teste.append(0)
+                  atributos_teste.append(item[:4])
+                  
+        
+        if item[4] == "Iris-versicolor":
+              if c2 > 0:
+                  c2 -= 1
+                  rotulos_treino.append(1)
+                  atributos_treino.append(item[:4])
+              else:
+                  rotulos_teste.append(1)
+                  atributos_teste.append(item[:4])
+                  
+        if item[4] == "Iris-virginica":
+              if c3 > 0:
+                  c3 -= 1
+                  rotulos_treino.append(2)
+                  atributos_treino.append(item[:4])
+              else:
+                  rotulos_teste.append(2)
+                  atributos_teste.append(item[:4])
 
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
 

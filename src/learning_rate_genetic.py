@@ -1,4 +1,4 @@
-"""This file implements a genetic algorithm to optimize the learning rate for a neural network model."""
+"""Implements a genetic algorithm to optimize the learning rate."""
 
 import random
 import numpy as np

@@ -1,4 +1,4 @@
-"""This file implements a genetic algorithm to optimize the number of epochs for training a neural network model."""
+"""Implements a genetic algorithm to optimize the number of epochs."""
 
 import math
 import random

@@ -21,20 +21,6 @@ src\learning_rate_genetic.py:65:0: C0116: Missing function or method docstring (
 src\learning_rate_genetic.py:66:4: W0621: Redefining name 'already_used' from outer scope (line 12) (redefined-outer-name)
 src\learning_rate_genetic.py:76:0: C0116: Missing function or method docstring (missing-function-docstring)
 src\learning_rate_genetic.py:4:0: C0411: third party import "numpy" should be placed before first party imports "treino", "util"  (wrong-import-order)
-************* Module main
-src\main.py:10:0: C0301: Line too long (110/100) (line-too-long)
-src\main.py:18:0: C0303: Trailing whitespace (trailing-whitespace)
-src\main.py:34:0: C0303: Trailing whitespace (trailing-whitespace)
-src\main.py:43:27: C0303: Trailing whitespace (trailing-whitespace)
-src\main.py:50:0: C0303: Trailing whitespace (trailing-whitespace)
-src\main.py:52:0: C0303: Trailing whitespace (trailing-whitespace)
-src\main.py:62:0: C0303: Trailing whitespace (trailing-whitespace)
-src\main.py:9:0: C0116: Missing function or method docstring (missing-function-docstring)
-src\main.py:9:0: R0914: Too many local variables (23/15) (too-many-locals)
-src\main.py:12:8: W0105: String statement has no effect (pointless-string-statement)
-src\main.py:28:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
-src\main.py:35:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
-src\main.py:7:0: C0411: standard import "os" should be placed before first party imports "treino", "util", "epochs_genetic", "learning_rate_genetic"  (wrong-import-order)
 ************* Module treino
 src\treino.py:15:0: C0303: Trailing whitespace (trailing-whitespace)
 src\treino.py:18:0: C0303: Trailing whitespace (trailing-whitespace)
@@ -86,7 +72,9 @@ src\util.py:1:0: R0801: Similar lines in 2 files
 ==epochs_genetic:[26:43]
 ==learning_rate_genetic:[20:34]
         new_generation = sorted_generation[:(10 * POPULATION_SIZE) // 100]
+
         probabilities = probabilities_calculator(sorted_fit_scores)
+
         new_generation.extend(crossing_over(sorted_generation, probabilities, new_generation))
 
         new_generation = mutation(new_generation)
@@ -95,19 +83,12 @@ src\util.py:1:0: R0801: Similar lines in 2 files
 
     return generation[0]
 
-def fitness_test(current_generation, train_epochs):
+def fitness_test(curr_gen, train_learn_rt):
+    """CHANGE!!!"""
     for i in range(POPULATION_SIZE):
         accs = []
         for _ in range(2): (duplicate-code)
-src\util.py:1:0: R0801: Similar lines in 2 files
-==epochs_genetic:[8:13]
-==learning_rate_genetic:[5:10]
-random.seed(42)
-np.random.seed(42)
-POPULATION_SIZE = 20
-chromossome_fitness_tuples = [0] * POPULATION_SIZE
-dataset = util.download_dados() (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 6.50/10 (previous run: 6.42/10, +0.08)
+Your code has been rated at 7.02/10 (previous run: 6.98/10, +0.04)
 

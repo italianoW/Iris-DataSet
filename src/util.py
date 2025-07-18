@@ -1,8 +1,7 @@
 import pandas as pd
-import kagglehub
 import os
 import math
-
+import random
 
 def download_dados(): #returns data from iris_dataset 
 
@@ -10,6 +9,7 @@ def download_dados(): #returns data from iris_dataset
 
 def divisao_treino_teste(dados):
 
+    random.seed(42)    
     lista = dados.values.tolist()
     tamanho = len(lista)
     treino,teste = [], []
@@ -28,6 +28,9 @@ def divisao_treino_teste(dados):
     for i in range(3):
         for j in range(17):
             teste.append(lista[i*50 + 33 + j])
+
+    random.shuffle(treino)
+    random.shuffle(teste)
 
     for i in range(99):
         atributos_treino.append(treino[i][:4])

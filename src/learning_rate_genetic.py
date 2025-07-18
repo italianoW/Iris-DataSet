@@ -51,6 +51,9 @@ def probabilities_calculator(accuracy_array):
 
 def roulette_choice(chromossomes, probabilities):
     """Select two parents using roulette wheel selection."""
+    if len(chromossomes) < 2 or len(probabilities) < 2:
+        raise ValueError("At least two chromosomes and probabilities are required for selection.")
+      
     attempts = 0
     first = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
     second = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
@@ -84,6 +87,9 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
 
 def mutation(chromossomes):
     """Mutate the chromosomes by slightly adjusting their values."""
+    if chromossomes == []:
+        return []
+      
     for _ in range((10 * POPULATION_SIZE) // 100):
         mutated = random.randint(0, len(chromossomes) - 1)
         if random.random() <= 0.5:

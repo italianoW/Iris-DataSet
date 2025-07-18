@@ -63,7 +63,7 @@ def test_envolve_mock(mock_avaliar, mock_treinar):
     assert isinstance(best, float)
     assert 0.01 <= best <= 0.3
 
-def test_mutation_empty_input():    # FALHANDO FALTA VERIFICAR ENTRADA VAZIA
+def test_mutation_empty_input():
     result = learning_rate_genetic.mutation([])
     assert result == []
 

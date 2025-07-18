@@ -1,4 +1,4 @@
-"""CHANGE!!!"""
+"""This file implements a genetic algorithm to optimize the number of epochs for training a neural network model."""
 
 import math
 import random
@@ -15,7 +15,7 @@ atributos_teste,rotulos_teste,attr_trein,rot_treino = util.divisao_treino_teste(
 already_used = []
 
 def envolve(learning_rate):
-    """CHANGE!!!"""
+    """Run the genetic algorithm to find the best number of epochs."""
     generation = [random.randint(1, 200) for _  in range(POPULATION_SIZE)]
 
     for _ in range(20):
@@ -37,7 +37,7 @@ def envolve(learning_rate):
     return generation[0]
 
 def fitness_test(curr_gen, train_learn_rt):
-    """CHANGE!!!"""
+    """Evaluate the fitness of each chromosome in the current generation."""
     for i in range(POPULATION_SIZE):
         accs = []
         for _ in range(2):
@@ -49,13 +49,13 @@ def fitness_test(curr_gen, train_learn_rt):
     chromossome_fitness_tuples.sort(key=lambda x: x[1], reverse=True)
 
 def probabilities_calculator(accuracy_array):
-    """CHANGE!!!"""
+    """Calculate the probabilities for each chromosome based on their fitness scores."""
     exp_scores = np.exp(accuracy_array)
     probabilities = exp_scores / exp_scores.sum()
     return probabilities.tolist()
 
 def roulette_choice(chromossomes, probabilities):
-    """CHANGE!!!"""
+    """Select two parents using roulette wheel selection."""
     attempts = 0
     first = int(np.random.choice(chromossomes, p=probabilities))
     second = int(np.random.choice(chromossomes, p=probabilities))
@@ -76,7 +76,7 @@ def roulette_choice(chromossomes, probabilities):
 
 
 def crossing_over(chromossomes, probabilities, new_chromossomes):
-    """CHANGE!!!"""
+    """Perform crossover to create new chromosomes from selected parents."""
     already_used.clear()
     for _ in range((90 * POPULATION_SIZE) // 100):
         parent1, parent2 = roulette_choice(chromossomes, probabilities)
@@ -88,7 +88,7 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
     return new_chromossomes
 
 def mutation(chromss):
-    """CHANGE!!!"""
+    """Mutate the chromosomes by slightly adjusting their values."""
     for _ in range((10 * POPULATION_SIZE) // 100):
         mutated = random.randint(0, POPULATION_SIZE - 1)
         chromss[mutated] = min(250, math.ceil(chromss[mutated] * 1.1 + random.uniform(-3, 3)))

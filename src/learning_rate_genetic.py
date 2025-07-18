@@ -1,4 +1,4 @@
-"""CHANGE!!!"""
+"""This file implements a genetic algorithm to optimize the learning rate for a neural network model."""
 
 import random
 import numpy as np
@@ -14,7 +14,7 @@ atributos_teste,rotulos_teste,attr_train,rtl_train = util.divisao_treino_teste(d
 already_used = []
 
 def envolve(epochs):
-    """CHANGE!!!"""
+    """Run the genetic algorithm to find the best learning rate."""
     generation = [round(random.uniform(0.01, 0.3), 5) for _ in range(POPULATION_SIZE)]
     for _ in range(20):
         fitness_test(generation, epochs)
@@ -32,7 +32,7 @@ def envolve(epochs):
     return generation[0]
 
 def fitness_test(crrt_gen, train_epochs):
-    """CHANGE!!!"""
+    """Evaluate the fitness of each chromosome in the current generation."""
     for i in range(POPULATION_SIZE):
         accs = []
         for _ in range(2):
@@ -44,13 +44,13 @@ def fitness_test(crrt_gen, train_epochs):
     chromossome_fitness_tuples.sort(key=lambda x:x[1], reverse=True)
 
 def probabilities_calculator(accuracy_array):
-    """CHANGE!!!"""
+    """Calculate the probabilities for each chromosome based on their fitness scores."""
     total = sum(accuracy_array)
     probabilities = [x / total for x in accuracy_array]
     return probabilities
 
 def roulette_choice(chromossomes, probabilities):
-    """CHANGE!!!"""
+    """Select two parents using roulette wheel selection."""
     attempts = 0
     first = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
     second = round(float(np.random.choice(chromossomes, p=probabilities)), 5)
@@ -71,7 +71,7 @@ def roulette_choice(chromossomes, probabilities):
 
 
 def crossing_over(chromossomes, probabilities, new_chromossomes):
-    """CHANGE!!!"""
+    """Perform crossover to create new chromosomes from selected parents."""
     already_used.clear()
     for _ in range((90 * POPULATION_SIZE) // 100):
         parent1, parent2 = roulette_choice(chromossomes, probabilities)
@@ -83,7 +83,7 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
     return new_chromossomes
 
 def mutation(chromossomes):
-    """CHANGE!!!"""
+    """Mutate the chromosomes by slightly adjusting their values."""
     for _ in range((10 * POPULATION_SIZE) // 100):
         mutated = random.randint(0, len(chromossomes) - 1)
         if random.random() <= 0.5:

@@ -1,28 +1,3 @@
-************* Module treino
-src\treino.py:15:0: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:18:0: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:29:0: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:37:66: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:38:53: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:45:0: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:46:0: C0301: Line too long (132/100) (line-too-long)
-src\treino.py:47:0: C0301: Line too long (102/100) (line-too-long)
-src\treino.py:48:0: C0301: Line too long (136/100) (line-too-long)
-src\treino.py:49:0: C0301: Line too long (150/100) (line-too-long)
-src\treino.py:50:0: C0301: Line too long (136/100) (line-too-long)
-src\treino.py:53:0: C0301: Line too long (118/100) (line-too-long)
-src\treino.py:56:0: C0301: Line too long (118/100) (line-too-long)
-src\treino.py:57:0: C0301: Line too long (104/100) (line-too-long)
-src\treino.py:58:0: C0301: Line too long (115/100) (line-too-long)
-src\treino.py:59:0: C0301: Line too long (104/100) (line-too-long)
-src\treino.py:60:0: C0301: Line too long (104/100) (line-too-long)
-src\treino.py:62:0: C0303: Trailing whitespace (trailing-whitespace)
-src\treino.py:63:0: C0304: Final newline missing (missing-final-newline)
-src\treino.py:6:0: R0914: Too many local variables (18/15) (too-many-locals)
-src\treino.py:8:4: W0612: Unused variable 'tamanho' (unused-variable)
-src\treino.py:3:0: C0411: standard import "math" should be placed before first party import "util"  (wrong-import-order)
-src\treino.py:4:0: C0411: standard import "random" should be placed before first party import "util"  (wrong-import-order)
-src\treino.py:2:0: W0611: Unused import util (unused-import)
 ************* Module util
 src\util.py:7:53: C0303: Trailing whitespace (trailing-whitespace)
 src\util.py:9:0: C0301: Line too long (116/100) (line-too-long)
@@ -85,5 +60,5 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
  (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 8.16/10 (previous run: 8.16/10, +0.00)
+Your code has been rated at 9.09/10 (previous run: 9.06/10, +0.04)
 

@@ -31,5 +31,4 @@ def test_treinar_pesos_variam():
 
 	pesos_depois = treino.treinar(exemplo_dados)
 
-	# Como seu treino sempre começa com pesos fixos 0.1, espera-se que pesos_depois != pesos_antes
 	assert pesos_depois != pesos_antes, "Os pesos deveriam ter sido atualizados no treino"

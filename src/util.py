@@ -2,19 +2,18 @@
 
 import math
 import os
-import pandas as pd
-import os
-import math
 import random
+import pandas as pd
 
-def download_dados(): #returns data from iris_dataset 
-
-    return pd.read_csv(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "iris.data.csv"))
+CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "iris.data.csv")
+def download_dados():
+    """CHANGE!!!"""
+    return pd.read_csv(CSV)
 
 def divisao_treino_teste(dados):
     """CHANGE!!!"""
 
-    random.seed(42)    
+    random.seed(42)
     lista = dados.values.tolist()
     treino,teste = [], []
     atributos_teste, rotulos_teste, atributos_treino, rotulos_treino = [], [], [], []

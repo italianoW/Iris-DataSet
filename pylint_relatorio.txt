@@ -5,8 +5,11 @@ src\util.py:1:0: R0801: Similar lines in 2 files
         sorted_generation = [chrmss for chrmss, _ in chromossome_fitness_tuples]
         sorted_fit_scores = [fitness for _, fitness in chromossome_fitness_tuples]
 
+
         new_generation = sorted_generation[:(10 * POPULATION_SIZE) // 100]
+
         probabilities = probabilities_calculator(sorted_fit_scores)
+
         new_generation.extend(crossing_over(sorted_generation, probabilities, new_generation))
 
         new_generation = mutation(new_generation)
@@ -15,7 +18,7 @@ src\util.py:1:0: R0801: Similar lines in 2 files
 
     return generation[0]
 
-def fitness_test(crrt_gen, train_epochs):
+def fitness_test(curr_gen, train_learn_rt):
     """CHANGE!!!"""
     for i in range(POPULATION_SIZE):
         accs = []
@@ -39,5 +42,5 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
  (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.92/10 (previous run: 9.85/10, +0.08)
+Your code has been rated at 9.92/10 (previous run: 9.89/10, +0.04)
 

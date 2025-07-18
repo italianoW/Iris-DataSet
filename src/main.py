@@ -56,7 +56,7 @@ def main():
                 score += flower[j] * pesos[j][i]
             resp.append(score)
 
-        print("Classe prevista:", CLASSES[resp.index(max(resp))])
+        print(f"Classe prevista:\n{CLASSES[resp.index(max(resp))]}")
 
 if __name__ == "__main__":
     main()

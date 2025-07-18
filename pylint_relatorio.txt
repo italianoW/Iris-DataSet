@@ -1,4 +1,5 @@
 ************* Module util
+src\util.py:13:0: R0912: Too many branches (14/12) (too-many-branches)
 src\util.py:1:0: R0801: Similar lines in 2 files
 ==epochs_genetic:[22:43]
 ==learning_rate_genetic:[20:38]
@@ -22,7 +23,7 @@ def fitness_test(crrt_gen, train_epochs):
         for _ in range(2): (duplicate-code)
 src\util.py:1:0: R0801: Similar lines in 2 files
 ==epochs_genetic:[71:85]
-==learning_rate_genetic:[66:80]
+==learning_rate_genetic:[69:83]
         if attempts > 2:
             break
 
@@ -39,5 +40,5 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
  (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.92/10 (previous run: 9.92/10, +0.00)
+Your code has been rated at 9.89/10 (previous run: 9.78/10, +0.11)
 

@@ -26,38 +26,37 @@ def divisao_treino_teste(dados):
     for i in range(3):
         for j in range(10):
             teste.append(lista[i*50 + 33 + j])
-    
+
     c1 = 33
     c2 = 33
     c3 = 33
     for item in lista:
         if item[4] == "Iris-setosa":
-              if c1 > 0:
-                  c1 -= 1
-                  rotulos_treino.append(0)
-                  atributos_treino.append(item[:4])
-              else:
-                  rotulos_teste.append(0)
-                  atributos_teste.append(item[:4])
-                  
-        
+            if c1 > 0:
+                c1 -= 1
+                rotulos_treino.append(0)
+                atributos_treino.append(item[:4])
+            else:
+                rotulos_teste.append(0)
+                atributos_teste.append(item[:4])
+
         if item[4] == "Iris-versicolor":
-              if c2 > 0:
-                  c2 -= 1
-                  rotulos_treino.append(1)
-                  atributos_treino.append(item[:4])
-              else:
-                  rotulos_teste.append(1)
-                  atributos_teste.append(item[:4])
-                  
+            if c2 > 0:
+                c2 -= 1
+                rotulos_treino.append(1)
+                atributos_treino.append(item[:4])
+            else:
+                rotulos_teste.append(1)
+                atributos_teste.append(item[:4])
+
         if item[4] == "Iris-virginica":
-              if c3 > 0:
-                  c3 -= 1
-                  rotulos_treino.append(2)
-                  atributos_treino.append(item[:4])
-              else:
-                  rotulos_teste.append(2)
-                  atributos_teste.append(item[:4])
+            if c3 > 0:
+                c3 -= 1
+                rotulos_treino.append(2)
+                atributos_treino.append(item[:4])
+            else:
+                rotulos_teste.append(2)
+                atributos_teste.append(item[:4])
 
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
 

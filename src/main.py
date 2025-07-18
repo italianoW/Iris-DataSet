@@ -30,8 +30,7 @@ def main():
 
         with open(fpath, "w", encoding="utf-8") as f:
             for linha in pesos:
-                linha_str = ",".join(str(valor) for valor in linha)
-                f.write(linha_str + "\n")
+                f.write(",".join(str(valor) for valor in linha) + "\n")
 
     pesos = []
 
@@ -45,8 +44,8 @@ def main():
         a = input("Deseja classificar uma flor? (s/n): ").strip().lower()
         if a != "s":
             print("Saindo do programa.")
-            break     
-          
+            break
+
         print("Digite os atributos da flor:")
         flower.append(float(input("SepalLengthCm:")))
         flower.append(float(input("SepalWidthCm:")))

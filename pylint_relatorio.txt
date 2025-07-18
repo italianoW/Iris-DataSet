@@ -1,5 +1,12 @@
+************* Module main
+src\main.py:19:0: R0914: Too many local variables (22/15) (too-many-locals)
+src\main.py:19:0: R0915: Too many statements (58/50) (too-many-statements)
+************* Module treino
+src\treino.py:12:0: R0914: Too many local variables (23/15) (too-many-locals)
 ************* Module util
 src\util.py:13:0: R0912: Too many branches (14/12) (too-many-branches)
+src\util.py:63:0: R0913: Too many arguments (6/5) (too-many-arguments)
+src\util.py:63:0: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
 src\util.py:1:0: R0801: Similar lines in 2 files
 ==epochs_genetic:[22:43]
 ==learning_rate_genetic:[20:38]
@@ -16,7 +23,7 @@ src\util.py:1:0: R0801: Similar lines in 2 files
 
     return generation[0]
 
-def fitness_test(crrt_gen, train_epochs):
+def fitness_test(curgen, t_ep):
     """Evaluate the fitness of each chromosome in the current generation."""
     for i in range(POPULATION_SIZE):
         accs = []
@@ -40,5 +47,5 @@ def crossing_over(chromossomes, probabilities, new_chromossomes):
  (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.89/10 (previous run: 9.78/10, +0.11)
+Your code has been rated at 9.76/10 (previous run: 9.76/10, +0.00)
 

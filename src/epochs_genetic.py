@@ -36,16 +36,16 @@ def envolve(learning_rate):
 
     return generation[0]
 
-def fitness_test(curr_gen, train_learn_rt):
+def fitness_test(curgen, tl_rt):
     """Evaluate the fitness of each chromosome in the current generation."""
     for i in range(POPULATION_SIZE):
         accs = []
         for _ in range(2):
-            pesos_entrada_oculta, saida_oculta_pesos, bias_oculta, bias_saida = treino.treinar(attr_trein, rot_treino, curr_gen[i], train_learn_rt)
-            acc, _, _ = util.avaliar(pesos_entrada_oculta, bias_oculta, saida_oculta_pesos, bias_saida, atributos_teste, rotulos_teste)
-            accs.append(acc)
+            p_in_hide,out_p,b_hide, b_out = treino.treinar(attr_trein, rot_treino, curgen[i], tl_rt)
+            ac, _, _ = util.avaliar(p_in_hide, b_hide, out_p, b_out, atributos_teste, rotulos_teste)
+            accs.append(ac)
         avg_accuracy = sum(accs) / len(accs)
-        chromossome_fitness_tuples[i] = (curr_gen[i], avg_accuracy)
+        chromossome_fitness_tuples[i] = (curgen[i], avg_accuracy)
     chromossome_fitness_tuples.sort(key=lambda x: x[1], reverse=True)
 
 def probabilities_calculator(accuracy_array):

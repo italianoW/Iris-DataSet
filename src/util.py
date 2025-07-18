@@ -1,4 +1,4 @@
-"""CHANGE!!!"""
+"""Utility functions for processing the Iris dataset."""
 
 import math
 import os
@@ -7,11 +7,11 @@ import pandas as pd
 
 CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..", "model_data", "iris.data.csv")
 def download_dados():
-    """CHANGE!!!"""
+    """Download the Iris dataset from a CSV file (originated by the origial base data)."""
     return pd.read_csv(CSV)
 
 def divisao_treino_teste(dados):
-    """CHANGE!!!"""
+    """Divide the dataset into training and testing sets."""
 
     random.seed(42)
     lista = dados.values.tolist()
@@ -53,11 +53,11 @@ def divisao_treino_teste(dados):
     return atributos_teste,rotulos_teste,atributos_treino,rotulos_treino
 
 def mse(saida, esperado):
-    """CHANGE!!!"""
+    """Calculate the Mean Squared Error (MSE) between the predicted output and expected output."""
     return sum((s - e) ** 2 for s, e in zip(saida, esperado)) / len(saida)
 
 def avaliar(bias, modelo, atributos_teste, rotulos_teste):
-    """CHANGE!!!"""
+    """Evaluate the model's performance on the test set."""
     acertos = 0
     for atributos, rotulo in zip(atributos_teste, rotulos_teste):
         saida = relu([bias[i] + sum(atributos[j] * modelo[j][i]
@@ -71,12 +71,12 @@ def avaliar(bias, modelo, atributos_teste, rotulos_teste):
     return accuracy, bias
 
 def softmax(x):
-    """CHANGE!!!"""
+    """Calculate the softmax of a list of values."""
     max_x = max(x)
     e_x = [math.exp(i - max_x) for i in x]
     soma = sum(e_x)
     return [i / soma for i in e_x]
 
 def relu(x):
-    """CHANGE!!!"""
+    """Apply the ReLU activation function to a list of values."""
     return [max(0,v) for v in x]

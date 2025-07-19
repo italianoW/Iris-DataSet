@@ -28,7 +28,7 @@ def test_roulette_choice_valid_output():
     assert p1 in chromossomes and p2 in chromossomes
     assert p1 != p2
 
-def test_roulette_choice_single_element():  # FALHANDO FALTA VERIFICAR SE SÓ EXISTE UM ELEMENTO
+def test_roulette_choice_single_element():
     with pytest.raises(ValueError):
         learning_rate_genetic.roulette_choice([1], [1.0])
 
@@ -53,13 +53,31 @@ def test_mutation_bounds_epochs():
     mutated = learning_rate_genetic.mutation(chromossomes[:])
     assert all(1 <= x <= 250 for x in mutated)
 
-@patch('treino.treinar')
-@patch('util.avaliar')
-def test_envolve_mock(mock_avaliar, mock_treinar):
-    mock_treinar.return_value = ([0.1, 0.2], 0.5)
-    mock_avaliar.return_value = (0.9, None)
+@patch('learning_rate_genetic.util.avaliar')
+@patch('learning_rate_genetic.treino.treinar')
+@patch('learning_rate_genetic.util.divisao_treino_teste')
+@patch('learning_rate_genetic.util.download_dados')
+def test_envolve_mock(mock_download, mock_divisao, mock_treinar, mock_avaliar):
 
-    best = learning_rate_genetic.envolve(5)
+    mock_download.return_value = 'mock_dataset'
+    mock_divisao.return_value = (
+        [[0.1, 0.2]],  # atributos_teste
+        [1],           # rotulos_teste
+        [[0.3, 0.4]],  # attr_train
+        [0]            # rtl_train
+    )
+
+    mock_treinar.return_value = (
+        [0.1, 0.2],  # pesos_entrada_oculta
+        [0.3, 0.4],  # saida_oculta_pesos
+        0.1,         # bias_oculta
+        0.2          # bias_saida
+    )
+
+    mock_avaliar.return_value = (0.9, None, None)
+
+    best = learning_rate_genetic.envolve(epochs=5)
+
     assert isinstance(best, float)
     assert 0.01 <= best <= 0.3
 
@@ -68,6 +86,6 @@ def test_mutation_empty_input():
     assert result == []
 
 def test_mutation_single_element():
-    result = learning_rate_genetic.mutation([100])
+    result = learning_rate_genetic.mutation([0.1])
     assert isinstance(result, list)
-    assert 1 <= result[0] <= 250
+    assert 0.01 <= result[0] <= 1

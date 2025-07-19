@@ -21,4 +21,4 @@ def test_divisao_treino_teste_tamanho_e_rotulos():
 
     rotulos_esperados = {0, 1, 2}
     assert rotulos_esperados.issubset(set(rotulos_treino)), "Nem todos os rótulos foram encontrados no treino"
-    # assert rotulos_esperados.issubset(set(rotulos_teste)), "Nem todos os rótulos foram encontrados no teste"
+    assert rotulos_esperados.issubset(set(rotulos_teste)), "Nem todos os rótulos foram encontrados no teste"

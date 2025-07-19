@@ -6,7 +6,6 @@ from unittest.mock import patch, MagicMock
 import pytest
 import subprocess
 
-# Adiciona o diretório src ao path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 import main
@@ -16,7 +15,7 @@ FPATH = os.path.join(PASTA, 'pesos.csv')
 
 @pytest.fixture(autouse=True)
 def limpar_modelo():
-	# Remove o arquivo de pesos antes e depois dos testes
+
 	if os.path.exists(FPATH):
 		os.remove(FPATH)
 	yield
@@ -28,21 +27,32 @@ def mock_input_generator(*respostas):
 	return lambda _: next(respostas_iter)
 
 def test_main_gera_modelo_e_classifica(monkeypatch, capsys):
-	# Simula entradas: deseja classificar -> s -> atributos -> n (sai)
-	entradas = ["s", "5.1", "3.5", "1.4", "0.2", "n"]
-	monkeypatch.setattr("builtins.input", mock_input_generator(*entradas))
+    fpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model_data", "model")
+    if os.path.exists(fpath):
+        shutil.rmtree(fpath)  # Remove a pasta inteira para garantir
 
-	main.main()
+    entradas = ["s", "5.1", "3.5", "1.4", "0.2", "n"]
+    monkeypatch.setattr("builtins.input", mock_input_generator(*entradas))
 
-	# Verifica se o arquivo foi gerado
-	assert os.path.exists(FPATH), "O arquivo de pesos.csv deveria ter sido criado"
+    main.main()
 
-	# Verifica se a classificação foi impressa
-	saida = capsys.readouterr()
-	assert "Classe prevista:" in saida.out
+    fpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model_data", "model")
+    arquivos_esperados = [
+        "pesos_entrada_oculta.csv",
+        "saida_oculta_pesos.csv",
+        "bias_oculta.csv",
+        "bias_saida.csv"
+    ]
+
+    for arquivo in arquivos_esperados:
+        caminho = os.path.join(fpath, arquivo)
+        assert os.path.exists(caminho), f"O arquivo {arquivo} deveria ter sido criado"
+
+    saida = capsys.readouterr()
+    assert "Classe prevista:" in saida.out
 
 def test_main_utiliza_modelo_existente(monkeypatch, capsys):
-    # Cria um arquivo de pesos manualmente para forçar o caminho "else"
+
     os.makedirs(PASTA, exist_ok=True)
     with open(FPATH, "w") as f:
         f.write("0.1,0.2,0.3\n0.4,0.5,0.6\n0.7,0.8,0.9\n0.9,1.0,1.1\n")

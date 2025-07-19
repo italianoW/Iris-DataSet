@@ -24,19 +24,31 @@ def test_fitness_test():
     fitness_vals = [f for _, f in result]
     assert fitness_vals == sorted(fitness_vals, reverse=True)
 
-@patch('treino.treinar')
-@patch('util.avaliar')
-def test_envolve_mock_epochs(mock_avaliar, mock_treinar):
-    # Mock do treino: retorna pesos e bias fictícios
-    mock_treinar.return_value = ([0.1, 0.2], 0.5)
-    
-    # Mock da avaliação: retorna acurácia fixa
-    mock_avaliar.return_value = (0.85, None)
+@patch('epochs_genetic.util.avaliar')
+@patch('epochs_genetic.treino.treinar')
+@patch('epochs_genetic.util.divisao_treino_teste')
+@patch('epochs_genetic.util.download_dados')
+def test_envolve_mock_epochs(mock_download, mock_divisao, mock_treinar, mock_avaliar):
 
-    # Chama envolve com uma taxa de aprendizado qualquer
+    mock_download.return_value = 'mock_dataset'
+    mock_divisao.return_value = (
+        [[0.1, 0.2]],  # atributos_teste
+        [1],           # rotulos_teste
+        [[0.3, 0.4]],  # attr_trein
+        [0]            # rot_treino
+    )
+
+    mock_treinar.return_value = (
+        [0.1, 0.2],  # pesos_entrada_oculta
+        [0.3, 0.4],  # saida_oculta_pesos
+        0.1,         # bias_oculta
+        0.2          # bias_saida
+    )
+
+    mock_avaliar.return_value = (0.85, None, None)
+
     best = epochs_genetic.envolve(learning_rate=0.01)
 
-    # Verifica se é um int válido de épocas
     assert isinstance(best, int)
     assert 1 <= best <= 250
 
